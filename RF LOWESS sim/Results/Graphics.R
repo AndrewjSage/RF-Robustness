@@ -1,4 +1,4 @@
-setwd("~/Box Sync/Iowa State/Research/Robustness of Random Forest/RFLOWESS sim/Results")
+setwd("~/OneDrive - Lawrence University/Research/Robust RF/RFLOWESS sim/Results")
 
 library(tidyverse)
 
@@ -7,46 +7,63 @@ nprops <- 6
 p <- c(rep(c(0, 0.05, 0.10, 0.15, 0.20, 0.25),each=ntechs))
 Techs=c("Y-bar", "RF", "QRF", "Li-Martin(Tukey)", "Li-Martin(Huber)","Mean-Med.", "Med.-Med.", "Med.-Mean","LOWESS-6","LOWESS-U","LOWESS-UA", "LOWESS-RF", "LOWESS-RFA", "LOWESS-L", "LOWESS-LA", "Truth")
 Technique <- c(rep(Techs, nprops))
+dodge <- position_dodge(width=0.01)
 
 ################################################################################################
 #Roy-Larocque 1
 load("RL1_Results.Rdata")
 
 df <- RL1m1df
-RL1m1 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("a) s=0.20")+ theme(plot.title = element_text(hjust = 0.5))
-RL1m1a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("a) s=0.20")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m1 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("a) s=0.20")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m1a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("a) s=0.20")+ theme(plot.title = element_text(hjust = 0.5))
 
 df <- RL1m2df
-RL1m2 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("b) s=0.40")+ theme(plot.title = element_text(hjust = 0.5))
-RL1m2a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("b) s=0.40")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m2 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("b) s=0.40")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m2a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("b) s=0.40")+ theme(plot.title = element_text(hjust = 0.5))
 
 df <- RL1m3df
-RL1m3 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("c) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
-RL1m3a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("c) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m3 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("c) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m3a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("c) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
 
 df <- RL1m4df
-RL1m4 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("d) s=0.80")+ theme(plot.title = element_text(hjust = 0.5))
-RL1m4a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("d) s=0.80")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m4 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("d) s=0.80")+ theme(plot.title = element_text(hjust = 0.5))
+RL1m4a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("d) s=0.80")+ theme(plot.title = element_text(hjust = 0.5))
 
 ################################################################################################
 #Roy-Larocque 2
 load("RL2_Results.Rdata")
 
 df <- RL2m1df
-RL2m1 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("a) s=0.15")+ theme(plot.title = element_text(hjust = 0.5)) 
-RL2m1a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("a) s=0.15")+ theme(plot.title = element_text(hjust = 0.5))
+RL2m1 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("a) s=0.15")+ theme(plot.title = element_text(hjust = 0.5)) 
+RL2m1a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("a) s=0.15")+ theme(plot.title = element_text(hjust = 0.5))
 
 df <- RL2m2df
-RL2m2 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("b) s=0.30")+ theme(plot.title = element_text(hjust = 0.5))
-RL2m2a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("b) s=0.30")+ theme(plot.title = element_text(hjust = 0.5))
+RL2m2 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("b) s=0.30")+ theme(plot.title = element_text(hjust = 0.5))
+RL2m2a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("b) s=0.30")+ theme(plot.title = element_text(hjust = 0.5))
 
 df <- RL2m3df
-RL2m3 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("c) s=0.45")+ theme(plot.title = element_text(hjust = 0.5))
-RL2m3a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("c) s=0.45")+ theme(plot.title = element_text(hjust = 0.5))
+RL2m3 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("c) s=0.45")+ theme(plot.title = element_text(hjust = 0.5))
+RL2m3a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("c) s=0.45")+ theme(plot.title = element_text(hjust = 0.5))
 
 df <- RL2m4df
-RL2m4 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("d) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
-RL2m4a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("d) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
+RL2m4 <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("d) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
+RL2m4a <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("d) s=0.60")+ theme(plot.title = element_text(hjust = 0.5))
 
 
 
@@ -56,12 +73,16 @@ load("LM_Results.Rdata")
 
 #Eliminate RF from graphic since it's so big makes others hard to see
 df <- LM1mdf %>% filter(Technique !="RF")
-LM1p <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("a) Uncorrelated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) 
-LM1pa <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("b) Uncorrelated Predictors")+ theme(plot.title = element_text(hjust = 0.5))
+LM1p <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("a) Uncorrelated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) 
+LM1pa <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("b) Uncorrelated Predictors")+ theme(plot.title = element_text(hjust = 0.5))
 
 df <- LM2mdf %>% filter(Technique !="RF")
-LM2p <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("a) Correlated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) 
-LM2pa <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line()+geom_point()+ theme(legend.position = "bottom")+ggtitle("b) Correlated Predictors")+ theme(plot.title = element_text(hjust = 0.5))
+LM2p <- ggplot(df, aes(x = p, y = MSPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMSPE, ymax = UpperMSPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("a) Correlated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) 
+LM2pa <- ggplot(df, aes(x = p, y = MAPE, color = Technique)) + geom_line() +
+  geom_errorbar(aes(ymin = LowerMAPE, ymax = UpperMAPE), position = dodge, width = 0.05) + theme(legend.position = "bottom")+ggtitle("b) Correlated Predictors")+ theme(plot.title = element_text(hjust = 0.5))
 
 
 #########################################################################
@@ -134,8 +155,8 @@ ggsave(filename="RL2MAPE_Plots.jpeg", plot=p, device="jpeg", width= 6, height=6,
 #LM1-MSPE
 mylegend<-g_legend(LM1p)
 
-p <- grid.arrange(arrangeGrob(LM1p + theme(legend.position="none")+ylim(c(8,12.5))+ggtitle("a) Uncorrelated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) ,
-                              LM2p + theme(legend.position="none")+ylim(c(8,11.2))+ggtitle("b) Correlated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) ,
+p <- grid.arrange(arrangeGrob(LM1p + theme(legend.position="none")+ylim(c(7.5,14))+ggtitle("a) Uncorrelated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) ,
+                              LM2p + theme(legend.position="none")+ylim(c(7.5,14))+ggtitle("b) Correlated Predictors")+ theme(plot.title = element_text(hjust = 0.5)) ,
                               nrow=1),
                   mylegend, nrow=2,heights=c(10, 2))
 

@@ -118,12 +118,12 @@ ggsave(filename="Sin.eps", device="eps", width= 6, height=4, units="in", dpi=300
 #True, RF Pred and RF-LOWESS, and Huber Predicted
 p + geom_point() +geom_line(data = filter(NEW_long, variable%in%c( "Pred", "Actual", "LPred", "LMPred")), aes(x=x, y=value, colour=factor(variable, labels=c("RF Estimate","True Response", "RF-LOWESS Est.", "HF Estimate"))))+
   scale_colour_manual(breaks = c("True Response", "RF Estimate", "RF-LOWESS Est.", "HF Estimate"),values=c("red", "blue", "green", "purple"))+ 
-  labs(color = "Curve")+ theme(legend.text=element_text(size=12))+ theme(legend.title=element_text(size=12))+theme(legend.position = "bottom")+
-  guides(color=guide_legend(nrow=2,byrow=TRUE))
-+
-  geom_text(aes(x=1.95, y=0.1, label="Case 79")) +
-  geom_text(aes(x=2.1, y=0.4, label="Case 81")) +
-  geom_text(aes(x=2.55, y=2.0, label="Case 85"))   
+  labs(color = "Curve")+ theme(legend.text=element_text(size=12))+ theme(legend.title=element_text(size=12))+
+  guides(color=guide_legend(nrow=2,byrow=TRUE))+
+  xlim(c(0,2))+ylim(c(0,1.5)) +theme_bw()+ geom_text(aes(x=1.5, y=0.2, label="A")) +
+  geom_text(aes(x=1.7, y=0.5, label="B")) +theme(legend.position = "bottom")
+ggsave(filename="Sin.eps", device="eps", width= 6, height=4, units="in", dpi=300)
+
 
 
 #Zoomed in plot of True, RF Pred and RF-LOWESS, and Huber Predicted
