@@ -1,3 +1,8 @@
+#used R version 3.5.0 (2018-04-23)
+
+install_version("randomForestSRC", version = "2.5.1", repos = "http://cran.us.r-project.org")
+
+
 library(ggplot2)
 library(randomForestSRC)
 library(RFLOWESS)
@@ -35,7 +40,7 @@ sum((LMPred[[1]]-True)^2)
 LMPred[[3]]
 
 Resid <- X$y-predict(RF, OOB=TRUE)$predicted
-
+RFOOBPred <- predict(RF, OOB=TRUE)$predicted
 
 Xdf <- data.frame(X[,1])
 NEWdf <- data.frame(NEW[,1])
@@ -55,10 +60,6 @@ NEW$LMPred <- LMPred[[1]]
 #NEW$M1 <- MedAgg[[1]]
 #NEW$M2 <- MedAgg[[2]]
 #NEW$M3 <- MedAgg[[3]]
-
-sum((NEW$LMPred-NEW$True)^2)
-sum((NEW$True-NEW$Pred)^2)
-sum((NEW$True-NEW$LPred)^2)
 
 library(reshape2)
 NEW_long <- melt(NEW, id=c("x", "y"))  # convert to long format
@@ -161,10 +162,12 @@ which(abs(NEW$True-NEW$Pred)>.25)
 
 case <-89
 NEW[case,]
-Weights <- data.frame(rownames(X), round(X$x,3), round(X$y,3), round(PredWeights[case,],3), round(Resid,3), round(lambdas[[1]][1,],3), round(LPred[[2]][case,],3), round(LMPred[[2]][case,],3))
-names(Weights) <- c("Case", "x", "y", "RF", "Resid", "lambda",  "LOWESS", "LM")
-arrange(Weights, desc(RF))[1:10,]
+Weights <- data.frame(rownames(X), round(X$x,3), round(X$y,3), round(RFOOBPred,3), round(PredWeights[case,],3), round(Resid,3), round(lambdas[[1]][1,],3), round(LPred[[2]][case,],3), round(LMPred[[2]][case,],3))
+names(Weights) <- c("Case", "x", "y", "RFOOB Pred", "RFweight", "Resid", "lambda",  "LOWESS", "LM")
+arrange(Weights, desc(RFweight))[1:5,]
 round(PredWeights[case,],3)
 round(LPred[[2]][case,],3)
 round(LMPred[[2]][case,],3)
 
+Weights[c(79,81,80,82,77),]
+NEW[89,]
