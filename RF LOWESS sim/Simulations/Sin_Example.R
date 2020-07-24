@@ -1,7 +1,8 @@
 #used R version 3.5.0 (2018-04-23)
 
 install_version("randomForestSRC", version = "2.5.1", repos = "http://cran.us.r-project.org")
-
+library(devtools)
+install_github("andrewjsage/RFLOWESS")
 
 library(ggplot2)
 library(randomForestSRC)
@@ -121,8 +122,8 @@ p + geom_point() +geom_line(data = filter(NEW_long, variable%in%c( "Pred", "Actu
   scale_colour_manual(breaks = c("True Response", "RF Estimate", "RF-LOWESS Est.", "HF Estimate"),values=c("red", "blue", "green", "purple"))+ 
   labs(color = "Curve")+ theme(legend.text=element_text(size=12))+ theme(legend.title=element_text(size=12))+
   guides(color=guide_legend(nrow=2,byrow=TRUE))+
-  xlim(c(0,2))+ylim(c(0,1.5)) +theme_bw()+ geom_text(aes(x=1.5, y=0.2, label="A")) +
-  geom_text(aes(x=1.7, y=0.5, label="B")) +theme(legend.position = "bottom")
+  xlim(c(0,2))+ylim(c(0,2.2)) +theme_bw()+ geom_text(aes(x=1.5, y=0.2, label="A")) +
+  geom_text(aes(x=1.7, y=0.5, label="B")) + geom_text(aes(x=2, y=2.0, label="C"))  +theme(legend.position = "bottom")
 ggsave(filename="Sin.eps", device="eps", width= 6, height=4, units="in", dpi=300)
 
 
